@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.beans.Transient;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.time.LocalDateTime;
@@ -41,6 +42,7 @@ import org.mockito.Mockito;
 
 public class AppTest 
 {
+
    
     @Test
     @DisplayName("A classe veículo possui todos os atributos com os tipos definidos")
@@ -56,13 +58,13 @@ public class AppTest
         Field estaEstacionado = clazz.getDeclaredField("estaEstacionado");
         
         
-        assertEquals(true,placa.getType()==String.class);
-        assertEquals(true,modelo.getType()==String.class);
-        assertEquals(true,fabricante.getType()==String.class);
-        assertEquals(true,anoFabricacao.getType().getTypeName()=="int");
-        assertEquals(true,cor.getType()==String.class);
-        assertEquals(true,horaEntrada.getType()==LocalDateTime.class);
-        assertEquals(true,estaEstacionado.getType().getTypeName()=="boolean");
+        assertEquals(true,placa.getType()==String.class,"O tipo está errado");
+        assertEquals(true,modelo.getType()==String.class,"O tipo está errado");
+        assertEquals(true,fabricante.getType()==String.class,"O tipo está errado");
+        assertEquals(true,anoFabricacao.getType().getTypeName()=="int","O tipo está errado");
+        assertEquals(true,cor.getType()==String.class,"O tipo está errado");
+        assertEquals(true,horaEntrada.getType()==LocalDateTime.class,"O tipo está errado");
+        assertEquals(true,estaEstacionado.getType().getTypeName()=="boolean","O tipo está errado");
         
     }
 
@@ -81,17 +83,17 @@ public class AppTest
         Field estaEstacionado = clazz.getDeclaredField("estaEstacionado");
         
         
-        assertEquals(true,Modifier.isPrivate(placa.getModifiers()));
-        assertEquals(true,Modifier.isPrivate(modelo.getModifiers()));
-        assertEquals(true,Modifier.isPrivate(fabricante.getModifiers()));
-        assertEquals(true,Modifier.isPrivate(anoFabricacao.getModifiers()));
-        assertEquals(true,Modifier.isPrivate(cor.getModifiers()));
-        assertEquals(true,Modifier.isPrivate(horaEntrada.getModifiers()));
-        assertEquals(true,Modifier.isPrivate(estaEstacionado.getModifiers()));   
+        assertEquals(true,Modifier.isPrivate(placa.getModifiers()),"O atributo não está privado");
+        assertEquals(true,Modifier.isPrivate(modelo.getModifiers()),"O atributo não está privado");
+        assertEquals(true,Modifier.isPrivate(fabricante.getModifiers()),"O atributo não está privado");
+        assertEquals(true,Modifier.isPrivate(anoFabricacao.getModifiers()),"O atributo não está privado");
+        assertEquals(true,Modifier.isPrivate(cor.getModifiers()),"O atributo não está privado");
+        assertEquals(true,Modifier.isPrivate(horaEntrada.getModifiers()),"O atributo não está privado");
+        assertEquals(true,Modifier.isPrivate(estaEstacionado.getModifiers()),"O atributo não está privado");   
     }
 
     @Test
-    @DisplayName("Existe somente um método construtor definido para a classe veículo")
+    @DisplayName("Na classe veiculo existe somente um método construtor definido para a classe veículo")
     public void testaConstrutorVeiculo(){
 
         String placa = "AAA-1122";
@@ -102,12 +104,12 @@ public class AppTest
 
         Veiculo veiculo = new Veiculo(placa,modelo,fabricante,anoFabricacao,cor);
         
-        assertEquals(1, Veiculo.class.getDeclaredConstructors().length);
+        assertEquals(1, Veiculo.class.getDeclaredConstructors().length,"A classe veículo possui mais de um construtor");
 
     }   
 
     @Test
-    @DisplayName("Existe os getters e os atributos estão com valores corretos")
+    @DisplayName("Na classe veiculo existe os getters e os atributos estão com valores corretos")
     public void testaGettersEInicializacaoVeiculo(){
 
         String placa = "AAA-1122";
@@ -125,13 +127,13 @@ public class AppTest
                                         .agora();
 
 
-        assertEquals(veiculo.getPlaca(), placa);
-        assertEquals(veiculo.getModelo(), modelo);
-        assertEquals(veiculo.getFabricante(), fabricante);
-        assertEquals(veiculo.getAnoFabricacao(), anoFabricacao);
-        assertEquals(veiculo.getCor(), cor);
-        assertEquals(veiculo.isEstaEstacionado(), false);
-        assertNull(veiculo.getHoraEntrada());
+        assertEquals(veiculo.getPlaca(), placa,"O getter não está correto");
+        assertEquals(veiculo.getModelo(), modelo,"O getter não está correto");
+        assertEquals(veiculo.getFabricante(), fabricante,"O getter não está correto");
+        assertEquals(veiculo.getAnoFabricacao(), anoFabricacao,"O getter não está correto");
+        assertEquals(veiculo.getCor(), cor,"O getter não está correto");
+        assertEquals(veiculo.isEstaEstacionado(), false,"O getter não está correto");
+        assertNull(veiculo.getHoraEntrada(),"A hora foi inicializada errada");
     }
 
 
@@ -155,22 +157,24 @@ public class AppTest
         veiculo.setAnoFabricacao(anoFabricacao);
         veiculo.setCor(cor);
 
-        assertEquals(veiculo.getPlaca(), placa);
-        assertEquals(veiculo.getModelo(), modelo);
-        assertEquals(veiculo.getFabricante(), fabricante);
-        assertEquals(veiculo.getAnoFabricacao(), anoFabricacao);
-        assertEquals(veiculo.getCor(), cor);
-        assertEquals(veiculo.isEstaEstacionado(), false);
-        assertNull(veiculo.getHoraEntrada());
+        assertEquals(veiculo.getPlaca(), placa,"O setter não funcionou");
+        assertEquals(veiculo.getModelo(), modelo,"O setter não funcionou");
+        assertEquals(veiculo.getFabricante(), fabricante,"O setter não funcionou");
+        assertEquals(veiculo.getAnoFabricacao(), anoFabricacao,"O setter não funcionou");
+        assertEquals(veiculo.getCor(), cor,"O setter não funcionou");
+        assertEquals(veiculo.isEstaEstacionado(), false,"O setter não funcionou");
+        assertNull(veiculo.getHoraEntrada(),"O setter não funcionou");
 
         assertThrows(NoSuchMethodException.class,()->{
                 veiculo.getClass().getDeclaredMethod("setHoraEntrada", LocalDateTime.class);
-            }
+            },
+            "Não pode haver o método setHoraEntrada"
         );
 
         assertThrows(NoSuchMethodException.class,()->{
                 veiculo.getClass().getDeclaredMethod("setEstaEstacionado", Boolean.class);
-            }
+            },
+            "Não pode haver o método setEstaEstacionado"
         );
 
     }
@@ -191,8 +195,8 @@ public class AppTest
         
         veiculo.registraEntrada(data);
 
-        assertEquals(data, veiculo.getHoraEntrada());
-        assertEquals(true, veiculo.isEstaEstacionado());
+        assertEquals(data, veiculo.getHoraEntrada(),"A hora de entrada do veículo está errada");
+        assertEquals(true, veiculo.isEstaEstacionado(),"Não foi setado o atributo estaEstacionado corretamente");
 
     }
 
@@ -213,9 +217,9 @@ public class AppTest
         veiculo.registraEntrada(data);
         boolean ret = veiculo.registraEntrada(data);
 
-        assertEquals(data, veiculo.getHoraEntrada());
-        assertEquals(true, veiculo.isEstaEstacionado());
-        assertEquals(false, ret);
+        assertEquals(data, veiculo.getHoraEntrada(),"A hora de entrada não está correta");
+        assertEquals(true, veiculo.isEstaEstacionado(),"Não foi setado o atributo estaEstacionado corretamente");
+        assertEquals(false, ret, "O retorno do método registraEntrada está incorreto");
         
     }
 
@@ -239,9 +243,9 @@ public class AppTest
 
         boolean ret = veiculo.registraSaida();
 
-        assertEquals(true, ret);
-        assertEquals(false, veiculo.isEstaEstacionado());
-        assertNull(veiculo.getHoraEntrada());
+        assertEquals(true, ret,"O retorno do método registraSaida está incorreto");
+        assertEquals(false, veiculo.isEstaEstacionado(),"O atributo estaEstacionado não foi setado corretamente");
+        assertNull(veiculo.getHoraEntrada(),"A horaEntrada não foi setada para null");
 
     }
 
@@ -253,9 +257,9 @@ public class AppTest
         
         boolean ret = veiculo.registraSaida();
 
-        assertEquals(false, ret);
-        assertEquals(false, veiculo.isEstaEstacionado());
-        assertNull(veiculo.getHoraEntrada());
+        assertEquals(false, ret,"O retorno do método registraSaida está incorreto");
+        assertEquals(false, veiculo.isEstaEstacionado(),"O atributo estaEstacionado não foi setado corretamente");
+        assertNull(veiculo.getHoraEntrada(),"A horaEntrada não foi setada para null");
 
     }
 
@@ -273,9 +277,9 @@ public class AppTest
         assertEquals(true, veiculos.getType() == ArrayList.class);
         
 
-        assertEquals(true, Modifier.isPrivate(nome.getModifiers()));
-        assertEquals(true, Modifier.isPrivate(telefone.getModifiers()));
-        assertEquals(true, Modifier.isPrivate(veiculos.getModifiers()));
+        assertEquals(true, Modifier.isPrivate(nome.getModifiers()),"O atributo nome não está privado");
+        assertEquals(true, Modifier.isPrivate(telefone.getModifiers()),"O atributo telefone não está privado");
+        assertEquals(true, Modifier.isPrivate(veiculos.getModifiers()),"O atributo veiculos não está privado");
         
     }
 
@@ -285,7 +289,7 @@ public class AppTest
 
         Estacionamento estacionamento = new Estacionamento("Estacionamento","1122");
         
-        assertEquals(1, Estacionamento.class.getDeclaredConstructors().length);
+        assertEquals(1, Estacionamento.class.getDeclaredConstructors().length,"A classe estacionamento possui mais de um construtor");
 
     }
 
@@ -297,8 +301,8 @@ public class AppTest
 
         ArrayList<Veiculo> lista = estacionamento.listaTodosVeiculos();
 
-        assertNotNull(lista);
-        assertEquals(0, lista.size());
+        assertNotNull(lista,"O retorno do método listaTodosVeiculos não pode ser null");
+        assertEquals(0, lista.size(),"A quantidade de elementos da lista deveria ser 0");
 
     }
 
@@ -316,9 +320,9 @@ public class AppTest
         
         boolean ret = estacionamento.cadastraVeiculo(placa, modelo, fabricante, anoFabricacao, cor);
         
-        assertEquals(true,ret);
-        assertEquals(1, estacionamento.listaTodosVeiculos().size());
-        assertEquals(placa, estacionamento.listaTodosVeiculos().get(0).getPlaca());
+        assertEquals(true,ret,"O método cadastraVeiculo deve retornar true neste caso");
+        assertEquals(1, estacionamento.listaTodosVeiculos().size(),"Depois de cadastrar um carro o tamanho da lista deve ser 1");
+        assertEquals(placa, estacionamento.listaTodosVeiculos().get(0).getPlaca(),"A placa do carro cadastrado deve estar na lista");
 
     }
 
@@ -344,9 +348,9 @@ public class AppTest
         boolean ret1 = estacionamento.cadastraVeiculo(placa, modelo1, fabricante1, anoFabricacao1, cor1);
         boolean ret2 = estacionamento.cadastraVeiculo(placa, modelo2, fabricante2, anoFabricacao2, cor2);
         
-        assertEquals(true,ret1);
-        assertEquals(false, ret2);
-        assertEquals(1, estacionamento.listaTodosVeiculos().size());
+        assertEquals(true,ret1,"O retorno do método cadastraVeiculo deve ser true neste caso");
+        assertEquals(false, ret2,"O retorno do método cadastraVeiculo deve ser false");
+        assertEquals(1, estacionamento.listaTodosVeiculos().size(),"O tamanho da lista deve ser 1 depois de cadastrar um veiculo");
     
     }
 
@@ -374,7 +378,7 @@ public class AppTest
 
         Veiculo veiculo = estacionamento.buscarVeiculo(placa1);
 
-        assertEquals(placa1,veiculo.getPlaca());
+        assertEquals(placa1,veiculo.getPlaca(),"O veículo não foi encontrado corretamente");
     }
 
     @Test
@@ -403,7 +407,7 @@ public class AppTest
 
         Veiculo veiculo = estacionamento.buscarVeiculo(placa3);
 
-        assertNull(veiculo);
+        assertNull(veiculo,"O veículo não deveria ter sido encontrado");
     }
 
     @Test
@@ -442,9 +446,10 @@ public class AppTest
         boolean ret = estacionamento.registraEntrada(placa1);
 
         Veiculo veiculo = estacionamento.buscarVeiculo(placa1);
-        assertEquals(true, ret);
-        assertEquals(true, veiculo.isEstaEstacionado());
-        assertEquals(data, veiculo.getHoraEntrada());
+        
+        assertEquals(true, ret,"Não foi possível registrar a entrada do veículo");
+        assertEquals(true, veiculo.isEstaEstacionado(),"O veículo deve estar com o atributo estaEstacionado como true");
+        assertEquals(data, veiculo.getHoraEntrada(),"O atrituto horaEntrada do veículo não está correto");
         
         
         
@@ -488,7 +493,7 @@ public class AppTest
 
         boolean ret2 = estacionamento.registraEntrada(placa1);
 
-        assertEquals(false, ret2);
+        assertEquals(false, ret2,"Não pode registrar a entrada de um veículo já estacionado");
 
     }  
     
@@ -499,7 +504,7 @@ public class AppTest
         
         boolean ret = estacionamento.registraEntrada("AAA-1122");
 
-        assertEquals(false, ret);
+        assertEquals(false, ret,"Não pode registrar a entrada e um veículo não cadastrado");
         
     }
 
@@ -545,7 +550,7 @@ public class AppTest
         mock.when(LocalDateTime::now).thenReturn(dataSaida);
         int ret2 = estacionamento.registraSaida(placa1);
 
-        assertEquals(60, ret2);
+        assertEquals(60, ret2,"O tempo em minutos está errado");
         
     }
 
@@ -573,7 +578,7 @@ public class AppTest
         boolean ret1 = estacionamento.registraEntrada(placa1);
         int ret2 = estacionamento.registraSaida(placa2);
 
-        assertEquals(-1, ret2);
+        assertEquals(-1, ret2,"Não pode registrar a saída de um veículo não estacionado");
         
     }
 
@@ -593,21 +598,7 @@ public class AppTest
 
         List<Veiculo> estacionados = estacionamento.listaVeiculosEstacionados();
 
-        assertEquals(2, estacionados.size());
+        assertEquals(2, estacionados.size(),"A lista de veiculos estacionados está incorreta");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
