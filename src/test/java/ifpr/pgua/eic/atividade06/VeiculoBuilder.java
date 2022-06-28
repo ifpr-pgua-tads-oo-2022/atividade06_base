@@ -8,6 +8,7 @@ package ifpr.pgua.eic.atividade06;
 
 public class VeiculoBuilder{
 
+    /*
     private static VeiculoBuilder instance;
     private Veiculo veiculo = new Veiculo("AAA-1122", "Corsa", "Chevrolet", 2002, "Azul");
 
@@ -47,7 +48,7 @@ public class VeiculoBuilder{
     public Veiculo agora(){
         return instance.veiculo;
     }
-
+ */
 
 
 
