@@ -29,5 +29,5 @@ jobs:
           distribution: 'adopt' # See 'Supported distributions' for available options
           java-version: '11'
       - run: |
-              javac -d bin -cp src/java/main:lib/junit-platform-console-standalone-1.8.2.jar src/java/test/ifpr/pgua/eic/atividade06/AppTest.java
+              javac -d bin -cp src/java/main:lib/junit-platform-console-standalone-1.8.2.jar src/test/java/ifpr/pgua/eic/atividade06/AppTest.java
               java -jar lib/junit-platform-console-standalone-1.8.2.jar --class-path bin --select-class ifpr.pgua.eic.atividade06.AppTest
