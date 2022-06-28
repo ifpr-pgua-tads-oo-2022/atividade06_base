@@ -41,7 +41,7 @@ import org.mockito.Mockito;
 
 public class AppTest 
 {
-    /* 
+   
     @Test
     @DisplayName("A classe veículo possui todos os atributos com os tipos definidos")
     public void testaTiposAtributosVeiculo()throws NoSuchFieldException{
@@ -575,13 +575,6 @@ public class AppTest
 
         assertEquals(-1, ret2);
         
-    }
-
-*/
-
-    @Test
-    public void teste(){
-        assertTrue(true);
     }
 
 
