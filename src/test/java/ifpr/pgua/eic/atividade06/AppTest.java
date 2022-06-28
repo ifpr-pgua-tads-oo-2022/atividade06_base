@@ -577,6 +577,24 @@ public class AppTest
         
     }
 
+    @Test
+    @DisplayName("A classe estacionamento deve listar os veiculos estacionados")
+    public void testaListaVeiculosEstacionados(){
+        
+        Estacionamento estacionamento = new Estacionamento("Estacionamento","1122");
+        
+        estacionamento.cadastraVeiculo("AAA-1122", "A", "A", 1, "Azul");
+        estacionamento.cadastraVeiculo("BBB-1122", "B", "B", 2, "Bzul");
+        estacionamento.cadastraVeiculo("CCC-1122", "C", "C", 3, "Czul");
+        
+
+        estacionamento.registraEntrada("AAA-1122");
+        estacionamento.registraEntrada("CCC-1122");
+
+        List<Veiculo> estacionados = estacionamento.listaVeiculosEstacionados();
+
+        assertEquals(2, estacionados.size());
+    }
 
 
 
