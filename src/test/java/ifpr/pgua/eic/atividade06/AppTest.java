@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -422,10 +423,6 @@ public class AppTest
         assertEquals(true, ret);
         assertEquals(true, veiculo.isEstaEstacionado());
         assertEquals(data, veiculo.getHoraEntrada());
-        
-        
-        
-    
     }   
 
 
@@ -526,6 +523,10 @@ public class AppTest
         
     }
 
+
+
+
+
     @Test
     @DisplayName("A classe estacionamento não permite registrar a saida de um veiculo não estacionado")
     public void testaEstacionamentoNaoRegistraSaidaNaoEstacionado(){
@@ -555,20 +556,23 @@ public class AppTest
     }
 
 
+    @Test
+    @DisplayName("A classe estacionamento deve listar os veiculos estacionados")
+    public void testaListaVeiculosEstacionados(){
+        
+        Estacionamento estacionamento = new Estacionamento("Estacionamento","1122");
+        
+        estacionamento.cadastraVeiculo("AAA-1122", "A", "A", 1, "Azul");
+        estacionamento.cadastraVeiculo("BBB-1122", "B", "B", 2, "Bzul");
+        estacionamento.cadastraVeiculo("CCC-1122", "C", "C", 3, "Czul");
+        
 
+        estacionamento.registraEntrada("AAA-1122");
+        estacionamento.registraEntrada("CCC-1122");
 
+        List<Veiculo> estacionados = estacionamento.listaVeiculosEstacionados();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        assertEquals(2, estacionados.size());
+    }
+    
 }

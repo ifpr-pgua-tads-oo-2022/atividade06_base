@@ -2,6 +2,8 @@ package ifpr.pgua.eic.atividade06;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Estacionamento {
     private String nome;
@@ -32,6 +34,10 @@ public class Estacionamento {
 
     public ArrayList<Veiculo> listaTodosVeiculos(){
         return veiculos;
+    }
+
+    public ArrayList<Veiculo> listaVeiculosEstacionados(){
+        return new ArrayList<>(veiculos.stream().filter(veiculo -> veiculo.isEstaEstacionado()).collect(Collectors.toList()));
     }
 
     public Veiculo buscarVeiculo(String placa){
